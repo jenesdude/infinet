@@ -1,0 +1,69 @@
+Value PTP_role (\w+)
+Value Device_name (.*\w)
+Value Uptime (\d+h \d{2}m \d{2}s)
+Value State (.*\w)
+Value Temperature (\d+)
+Value Distance (\d+)
+Value DFS (\S+)
+Value TX_power_min (\S+)
+Value TX_power_max (\S+)
+Value AMC_strategy (\w+)
+Value Remote_TX_power_min (\S+)
+Value Remote_TX_power_max (\S+)
+Value Bandwidth (\d+)
+Value DL_quota (\d+)
+Value Frame_length (\d+)
+Value Guard_interval (\d+)
+Value Downlink_frequency (\d+)
+Value Uplink_frequency (\d+)
+Value Downlink_capacity (\d+\.\d)
+Value Uplink_capacity (\d+\.\d)
+Value Downlink_throughput (\d+)
+Value Uplink_throughput (\d+)
+Value List MCS_downlink (\S+ \(\d+\))
+Value List MCS_uplink (\S+ \(\d+\))
+Value List RSSI_downlink (\S+\.\d)
+Value List RSSI_uplink (\S+\.\d)
+Value List EVM_downlink (\S+\.\d)
+Value List EVM_uplink (\S+\.\d)
+Value List Crosstalk_downlink (\S+\.\d)
+Value List Crosstalk_uplink (\S+\.\d)
+Value List Frames_downlink (\d+)
+Value List Frames_uplink (\d+)
+Value List Errors_downlink (\d+)
+Value List Errors_uplink (\d+)
+Value List ARQ_ratio_downlink (\S+)
+Value List ARQ_ratio_uplink (\S+)
+Value List Tx_attenuation_downlink (\d+\.\d{2})
+Value List Tx_attenuation_uplink (\d+\.\d{2})
+
+Start
+  ^\| PTP role\s+${PTP_role}\s+\|
+  ^\| Device name\s+${Device_name}\s+\|
+  ^\| Uptime\s+${Uptime}\s+\|
+  ^\| State\s+${State}\s+\| Temperature\s+${Temperature} C\s+\|
+  ^\| Distance\s+${Distance} m\s+\| DFS\s+${DFS}\s+\|
+  ^\| TX power\s+${TX_power_min} \/ ${TX_power_max} dBm\s+\| AMC strategy\s+${AMC_strategy}\s+\|
+  ^\| Remote TX power\s+${Remote_TX_power_min} \/ ${Remote_TX_power_max} dBm\s+\|\s+\|
+  ^\| Bandwidth\s+${Bandwidth} MHz\s+\| DL quota\s+${DL_quota} %\s+\|
+  ^\| Frame length\s+${Frame_length} ms\s+\| Guard interval\s+1\/${Guard_interval}\s+\|
+  ^\| Frequency\s+\| ${Downlink_frequency} MHz\s+\| ${Uplink_frequency} MHz\s+\|
+  ^\| Capacity\s+\| ${Downlink_capacity} Mbps\s+\| ${Uplink_capacity} Mbps\s+\|
+  ^\| Throughput\s+\| ${Downlink_throughput} kbps\s+\| ${Uplink_throughput} kbps\s+\|
+  ^\| MCS\s+\| ${MCS_downlink}\s+\| \S+ \(\d+\)\s+\| ${MCS_uplink}\s+.*\| -> Continue
+  ^\| MCS\s+\| \S+ \(\d+\)\s+\| ${MCS_downlink}\s+\| \S+ \(\d+\)\s+\| ${MCS_uplink}\s+\|
+  ^\| RSSI\s+\| ${RSSI_downlink} dBm\s+\| \S+\.\d dBm\s+\| ${RSSI_uplink} dBm\s+.*\| -> Continue
+  ^\| RSSI\s+\| \S+\.\d dBm\s+\| ${RSSI_downlink} dBm\s+\| \S+\.\d dBm\s+\| ${RSSI_uplink} dBm\s+\|
+  ^\| EVM\s+\| ${EVM_downlink} dB\s+\| \S+\.\d dB\s+\| ${EVM_uplink} dB\s+.*\| -> Continue
+  ^\| EVM\s+\| \S+\.\d dB\s+\| ${EVM_downlink} dB\s+\| \S+\.\d dB\s+\| ${EVM_uplink} dB\s+\|
+  ^\| Crosstalk\s+\| ${Crosstalk_downlink} dB\s+\| \S+\.\d dB\s+\| ${Crosstalk_uplink} dB\s+.*\| -> Continue
+  ^\| Crosstalk\s+\| \S+\.\d dB\s+\| ${Crosstalk_downlink} dB\s+\| \S+\.\d dB\s+\| ${Crosstalk_uplink} dB\s+\|
+  ^\| Frames\s+\| ${Frames_downlink}\s+\| \d+\s+\| ${Frames_uplink}\s+.*\| -> Continue
+  ^\| Frames\s+\| \d+\s+\| ${Frames_downlink}\s+\| \d+\s+\| ${Frames_uplink}\s+\|
+  ^\| Errors\s+\| ${Errors_downlink}\s+\| \d+\s+\| ${Errors_uplink}\s+.*\| -> Continue
+  ^\| Errors\s+\| \d+\s+\| ${Errors_downlink}\s+\| \d+\s+\| ${Errors_uplink}\s+\|
+  ^\| ARQ ratio\s+\| ${ARQ_ratio_downlink} %\s+\| \S+ %\s+\| ${ARQ_ratio_uplink} %\s+.*\| -> Continue
+  ^\| ARQ ratio\s+\| \S+ %\s+\| ${ARQ_ratio_downlink} %\s+\| \S+ %\s+\| ${ARQ_ratio_uplink} %\s+\|
+  ^\| Tx attenuation\s+\| ${Tx_attenuation_downlink} dB\s+\| \d+\.\d{2} dB\s+\| ${Tx_attenuation_uplink} dB\s+.*\| -> Continue
+  ^\| Tx attenuation\s+\| \d+\.\d{2} dB\s+\| ${Tx_attenuation_downlink} dB\s+\| \d+\.\d{2} dB\s+\| ${Tx_attenuation_uplink} dB\s+\|
+  ^-> Record
